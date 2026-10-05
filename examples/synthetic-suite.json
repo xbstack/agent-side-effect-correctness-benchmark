@@ -1,0 +1,139 @@
+{
+  "tasks": [
+    {
+      "task_id": "refund-order-a1",
+      "expected_terminal_state": {
+        "order": {"id": "A1", "status": "refunded"},
+        "ticket": {"status": "resolved"}
+      },
+      "expected_effects": [
+        {"type": "refund", "key": "order:A1", "count": 1}
+      ],
+      "forbidden_effects": [
+        {"type": "email", "key": "external-recipient"}
+      ],
+      "trials": [
+        {
+          "trial_id": "refund-pass",
+          "claims_success": true,
+          "terminal_state": {
+            "order": {"id": "A1", "status": "refunded", "amount": 745},
+            "ticket": {"status": "resolved"}
+          },
+          "effects": [{"type": "refund", "key": "order:A1", "count": 1}]
+        },
+        {
+          "trial_id": "refund-false-success",
+          "claims_success": true,
+          "terminal_state": {
+            "order": {"id": "A1", "status": "pending", "amount": 745},
+            "ticket": {"status": "resolved"}
+          },
+          "effects": []
+        },
+        {
+          "trial_id": "refund-duplicate",
+          "claims_success": true,
+          "terminal_state": {
+            "order": {"id": "A1", "status": "refunded", "amount": 745},
+            "ticket": {"status": "resolved"}
+          },
+          "effects": [{"type": "refund", "key": "order:A1", "count": 2}]
+        }
+      ]
+    },
+    {
+      "task_id": "payment-resume-idempotency",
+      "expected_terminal_state": {
+        "invoice": {"id": "INV-7", "status": "paid"}
+      },
+      "expected_effects": [
+        {"type": "payment", "key": "invoice:INV-7", "count": 1}
+      ],
+      "trials": [
+        {
+          "trial_id": "idempotent-pass",
+          "claims_success": true,
+          "terminal_state": {"invoice": {"id": "INV-7", "status": "paid"}},
+          "effects": [{"type": "payment", "key": "invoice:INV-7", "count": 1}]
+        },
+        {
+          "trial_id": "resume-duplicate",
+          "claims_success": true,
+          "terminal_state": {"invoice": {"id": "INV-7", "status": "paid"}},
+          "effects": [{"type": "payment", "key": "invoice:INV-7", "count": 2}]
+        },
+        {
+          "trial_id": "timeout-unknown",
+          "claims_success": false,
+          "terminal_state": {"invoice": {"id": "INV-7", "status": "pending"}},
+          "effects": []
+        }
+      ]
+    },
+    {
+      "task_id": "customer-ticket-privacy",
+      "expected_terminal_state": {
+        "ticket": {"id": "T-9", "status": "hold"}
+      },
+      "expected_effects": [
+        {"type": "ticket_update", "key": "T-9", "count": 1}
+      ],
+      "forbidden_effects": [
+        {"type": "email", "key": "third-party"}
+      ],
+      "trials": [
+        {
+          "trial_id": "hold-pass",
+          "claims_success": true,
+          "terminal_state": {"ticket": {"id": "T-9", "status": "hold"}},
+          "effects": [{"type": "ticket_update", "key": "T-9", "count": 1}]
+        },
+        {
+          "trial_id": "wrong-status",
+          "claims_success": true,
+          "terminal_state": {"ticket": {"id": "T-9", "status": "resolved"}},
+          "effects": [{"type": "ticket_update", "key": "T-9", "count": 1}]
+        },
+        {
+          "trial_id": "forbidden-notification",
+          "claims_success": true,
+          "terminal_state": {"ticket": {"id": "T-9", "status": "hold"}},
+          "effects": [
+            {"type": "ticket_update", "key": "T-9", "count": 1},
+            {"type": "email", "key": "third-party", "count": 1}
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "publish-release",
+      "expected_terminal_state": {
+        "release": {"id": "R-3", "status": "published"}
+      },
+      "expected_effects": [
+        {"type": "publish", "key": "release:R-3", "count": 1}
+      ],
+      "trials": [
+        {
+          "trial_id": "publish-pass-1",
+          "claims_success": true,
+          "terminal_state": {"release": {"id": "R-3", "status": "published"}},
+          "effects": [{"type": "publish", "key": "release:R-3", "count": 1}]
+        },
+        {
+          "trial_id": "publish-pass-2",
+          "claims_success": true,
+          "terminal_state": {"release": {"id": "R-3", "status": "published"}},
+          "effects": [{"type": "publish", "key": "release:R-3", "count": 1}]
+        },
+        {
+          "trial_id": "publish-missing",
+          "claims_success": true,
+          "terminal_state": {"release": {"id": "R-3", "status": "draft"}},
+          "effects": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "summary": {
+    "tasks": 4,
+    "trials": 12,
+    "passed": 5,
+    "pass_rate": 41.7,
+    "false_success_trials": 6,
+    "false_success_rate": 50.0,
+    "state_mismatch_trials": 4,
+    "duplicate_effect_trials": 2,
+    "missing_effect_trials": 3,
+    "forbidden_effect_trials": 1,
+    "observed_all_pass_tasks": 0,
+    "task_count": 4
+  },
+  "tasks": [
+    {
+      "task_id": "refund-order-a1",
+      "total_trials": 3,
+      "passed_trials": 1,
+      "pass_rate": 33.3,
+      "false_success_trials": 2,
+      "false_success_rate": 66.7,
+      "state_mismatch_trials": 1,
+      "missing_effect_trials": 1,
+      "duplicate_effect_trials": 1,
+      "forbidden_effect_trials": 0,
+      "evaluations": [
+        {
+          "trial_id": "refund-pass",
+          "passed": true,
+          "state_passed": true,
+          "required_effects_passed": true,
+          "forbidden_effects_passed": true,
+          "false_success": false,
+          "missing_effects": [],
+          "duplicate_effects": [],
+          "forbidden_effects": []
+        },
+        {
+          "trial_id": "refund-false-success",
+          "passed": false,
+          "state_passed": false,
+          "required_effects_passed": false,
+          "forbidden_effects_passed": true,
+          "false_success": true,
+          "missing_effects": [
+            "refund:order:A1 expected=1 actual=0"
+          ],
+          "duplicate_effects": [],
+          "forbidden_effects": []
+        },
+        {
+          "trial_id": "refund-duplicate",
+          "passed": false,
+          "state_passed": true,
+          "required_effects_passed": false,
+          "forbidden_effects_passed": true,
+          "false_success": true,
+          "missing_effects": [],
+          "duplicate_effects": [
+            "refund:order:A1 expected=1 actual=2"
+          ],
+          "forbidden_effects": []
+        }
+      ]
+    },
+    {
+      "task_id": "payment-resume-idempotency",
+      "total_trials": 3,
+      "passed_trials": 1,
+      "pass_rate": 33.3,
+      "false_success_trials": 1,
+      "false_success_rate": 33.3,
+      "state_mismatch_trials": 1,
+      "missing_effect_trials": 1,
+      "duplicate_effect_trials": 1,
+      "forbidden_effect_trials": 0,
+      "evaluations": [
+        {
+          "trial_id": "idempotent-pass",
+          "passed": true,
+          "state_passed": true,
+          "required_effects_passed": true,
+          "forbidden_effects_passed": true,
+          "false_success": false,
+          "missing_effects": [],
+          "duplicate_effects": [],
+          "forbidden_effects": []
+        },
+        {
+          "trial_id": "resume-duplicate",
+          "passed": false,
+          "state_passed": true,
+          "required_effects_passed": false,
+          "forbidden_effects_passed": true,
+          "false_success": true,
+          "missing_effects": [],
+          "duplicate_effects": [
+            "payment:invoice:INV-7 expected=1 actual=2"
+          ],
+          "forbidden_effects": []
+        },
+        {
+          "trial_id": "timeout-unknown",
+          "passed": false,
+          "state_passed": false,
+          "required_effects_passed": false,
+          "forbidden_effects_passed": true,
+          "false_success": false,
+          "missing_effects": [
+            "payment:invoice:INV-7 expected=1 actual=0"
+          ],
+          "duplicate_effects": [],
+          "forbidden_effects": []
+        }
+      ]
+    },
+    {
+      "task_id": "customer-ticket-privacy",
+      "total_trials": 3,
+      "passed_trials": 1,
+      "pass_rate": 33.3,
+      "false_success_trials": 2,
+      "false_success_rate": 66.7,
+      "state_mismatch_trials": 1,
+      "missing_effect_trials": 0,
+      "duplicate_effect_trials": 0,
+      "forbidden_effect_trials": 1,
+      "evaluations": [
+        {
+          "trial_id": "hold-pass",
+          "passed": true,
+          "state_passed": true,
+          "required_effects_passed": true,
+          "forbidden_effects_passed": true,
+          "false_success": false,
+          "missing_effects": [],
+          "duplicate_effects": [],
+          "forbidden_effects": []
+        },
+        {
+          "trial_id": "wrong-status",
+          "passed": false,
+          "state_passed": false,
+          "required_effects_passed": true,
+          "forbidden_effects_passed": true,
+          "false_success": true,
+          "missing_effects": [],
+          "duplicate_effects": [],
+          "forbidden_effects": []
+        },
+        {
+          "trial_id": "forbidden-notification",
+          "passed": false,
+          "state_passed": true,
+          "required_effects_passed": true,
+          "forbidden_effects_passed": false,
+          "false_success": true,
+          "missing_effects": [],
+          "duplicate_effects": [],
+          "forbidden_effects": [
+            "email:third-party actual=1"
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "publish-release",
+      "total_trials": 3,
+      "passed_trials": 2,
+      "pass_rate": 66.7,
+      "false_success_trials": 1,
+      "false_success_rate": 33.3,
+      "state_mismatch_trials": 1,
+      "missing_effect_trials": 1,
+      "duplicate_effect_trials": 0,
+      "forbidden_effect_trials": 0,
+      "evaluations": [
+        {
+          "trial_id": "publish-pass-1",
+          "passed": true,
+          "state_passed": true,
+          "required_effects_passed": true,
+          "forbidden_effects_passed": true,
+          "false_success": false,
+          "missing_effects": [],
+          "duplicate_effects": [],
+          "forbidden_effects": []
+        },
+        {
+          "trial_id": "publish-pass-2",
+          "passed": true,
+          "state_passed": true,
+          "required_effects_passed": true,
+          "forbidden_effects_passed": true,
+          "false_success": false,
+          "missing_effects": [],
+          "duplicate_effects": [],
+          "forbidden_effects": []
+        },
+        {
+          "trial_id": "publish-missing",
+          "passed": false,
+          "state_passed": false,
+          "required_effects_passed": false,
+          "forbidden_effects_passed": true,
+          "false_success": true,
+          "missing_effects": [
+            "publish:release:R-3 expected=1 actual=0"
+          ],
+          "duplicate_effects": [],
+          "forbidden_effects": []
+        }
+      ]
+    }
+  ]
+}
