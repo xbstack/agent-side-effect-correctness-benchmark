@@ -1,0 +1,51 @@
+{
+  "task_id": "refund-order-a1",
+  "total_trials": 3,
+  "passed_trials": 1,
+  "pass_rate": 33.3,
+  "false_success_trials": 2,
+  "false_success_rate": 66.7,
+  "state_mismatch_trials": 1,
+  "missing_effect_trials": 1,
+  "duplicate_effect_trials": 1,
+  "forbidden_effect_trials": 0,
+  "evaluations": [
+    {
+      "trial_id": "pass",
+      "passed": true,
+      "state_passed": true,
+      "required_effects_passed": true,
+      "forbidden_effects_passed": true,
+      "false_success": false,
+      "missing_effects": [],
+      "duplicate_effects": [],
+      "forbidden_effects": []
+    },
+    {
+      "trial_id": "false-success",
+      "passed": false,
+      "state_passed": false,
+      "required_effects_passed": false,
+      "forbidden_effects_passed": true,
+      "false_success": true,
+      "missing_effects": [
+        "refund:order:A1 expected=1 actual=0"
+      ],
+      "duplicate_effects": [],
+      "forbidden_effects": []
+    },
+    {
+      "trial_id": "duplicate-side-effect",
+      "passed": false,
+      "state_passed": true,
+      "required_effects_passed": false,
+      "forbidden_effects_passed": true,
+      "false_success": true,
+      "missing_effects": [],
+      "duplicate_effects": [
+        "refund:order:A1 expected=1 actual=2"
+      ],
+      "forbidden_effects": []
+    }
+  ]
+}
