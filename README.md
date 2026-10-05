@@ -41,6 +41,12 @@ The included fixture deliberately has:
 2. one false success where the agent says the refund completed but backend state is still pending;
 3. one duplicate side effect where the refund happens twice.
 
+## Online evaluator
+
+Use the browser-local XBSTACK evaluator with your own terminal-state and side-effect records:
+
+https://www.xbstack.com/en/tools/agent-side-effect-evaluator/?utm_source=github&utm_medium=referral&utm_campaign=agent_side_effect_correctness&utm_content=repo_readme&ref=github
+
 ## Important boundary
 
 This is not an LLM benchmark leaderboard and not a security certification. It is a deterministic outcome checker. Production evaluation still needs representative tasks, isolated test state, controlled tools, versioned fixtures, and repeated trials.
